@@ -160,3 +160,9 @@ db.students.find({
   name: { $regex: "^A", $options: "i" }
 });
 ```
+### Task 25: Use $exists to find students with enrolled courses
+```
+db.students.find({
+  coursesEnrolled: { $exists: true, $not: { $size: 0 } } 
+});
+```
