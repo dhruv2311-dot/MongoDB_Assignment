@@ -294,3 +294,53 @@ db.students.aggregate([
     }
 ]);
 ```
+#### **Task 41: Create a new collection for storing `studentFeedback`**  
+- Create a collection `studentFeedback` with fields: `studentRollNumber`, `feedbackText`, `date`.
+```js
+db.createCollection("studentFeedback");
+
+db.studentFeedback.insertOne({
+  studentRollNumber: "CSE2025001",
+  feedbackText: "The course was very insightful and well-structured.",
+  date: new Date()
+});
+```
+#### **Task 42: Query the `studentFeedback` collection to find feedback from a specific student**  
+- Use `find()` to retrieve feedback from `Jenil`.
+```js
+
+db.studentFeedback.find({ studentRollNumber: "Jenil2025001" });
+
+
+db.studentFeedback.find({ feedbackText: { $regex: "Jenil", $options: "i" } });
+```
+#### **Task 43: Use `$set` to update multiple fields at once**  
+- Use the `$set` operator to update the `department` and `coursesEnrolled` fields for `Arjun`.
+```js
+db.studentFeedback.updateOne(
+  { studentRollNumber: "Arjun2025001" },
+  {
+    $set: {
+      department: "Computer Science Engineering",
+      coursesEnrolled: ["Data Structures", "Algorithms", "Machine Learning"]
+    }
+  }
+);
+```
+#### **Task 44: Create a custom index on the `coursesEnrolled` field**  
+- Create an index on the `coursesEnrolled` array for faster querying.
+```js
+
+db.studentFeedback.createIndex({ coursesEnrolled: 1 });
+```
+#### **Task 45: Perform a query on nested documents in `students` collection**  
+- Query for students who have grades `A` in their courses.
+```js
+{
+  "name": "John Doe",
+  "courses": [
+    { "courseName": "Math", "grade": "A" },
+    { "courseName": "Science", "grade": "B" }
+  ]
+}
+```
